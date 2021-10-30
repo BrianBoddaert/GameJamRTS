@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include <GameFramework/SpringArmComponent.h>
+#include <Camera/CameraComponent.h>
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -15,15 +17,26 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		USpringArmComponent* pCameraBoom;
 
-public:	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		UCameraComponent* pPlayerCamera;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
+private:
+	void MoveUp(float Axis);
+	void MoveRight(float Axis);
+	void ZoomCamera(float Axis);
+	
+	float m_ZoomSpeed;
+	float m_CameraSpeed;
 };
