@@ -5,8 +5,8 @@
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
-	:m_ZoomSpeed{2.0f}
-	,m_CameraSpeed{25.0f}
+	:m_ZoomSpeed{2000.0f}
+	,m_CameraSpeed{ 1000.0f }
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -58,9 +58,11 @@ void APlayerCharacter::ZoomCamera(float Axis)
 	if (Axis == 0.f)
 		return;
 
-	if (pCameraBoom->TargetArmLength >= 650.f && Axis > 0.f)
+	Axis *= -1; // Flipping axis
+
+	if (pCameraBoom->TargetArmLength >= 1000.f && Axis > 0.f)
 		return;
-	if (pCameraBoom->TargetArmLength <= 50.f && Axis < 0.f)
+	if (pCameraBoom->TargetArmLength <= 0.f && Axis < 0.f)
 		return;
 
 	pCameraBoom->TargetArmLength += Axis * m_ZoomSpeed * GetWorld()->GetDeltaSeconds();
@@ -74,7 +76,7 @@ void APlayerCharacter::MoveUp(float Axis) // Up
 	FVector dir{ 0.71f,0.71f,0 };
 	auto pos = GetActorLocation();
 
-	SetActorLocation(pos + dir*Axis* m_CameraSpeed);
+	SetActorLocation(pos + dir*Axis* m_CameraSpeed * GetWorld()->GetDeltaSeconds());
 }
 
 void APlayerCharacter::MoveRight(float Axis)
@@ -85,5 +87,5 @@ void APlayerCharacter::MoveRight(float Axis)
 	FVector dir{ -0.71f,0.71f,0 };
 	auto pos = GetActorLocation();
 
-	SetActorLocation(pos + dir * Axis * m_CameraSpeed);
+	SetActorLocation(pos + dir * Axis * m_CameraSpeed * GetWorld()->GetDeltaSeconds());
 }
