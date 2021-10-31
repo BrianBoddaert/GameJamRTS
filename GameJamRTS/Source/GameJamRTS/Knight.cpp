@@ -2,6 +2,7 @@
 
 
 #include "Knight.h"
+#include "HealthComponent.h"
 
 // Sets default values
 AKnight::AKnight()
@@ -11,6 +12,8 @@ AKnight::AKnight()
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> bMesh(TEXT("/Game/Toony_Tiny_RTS_Set/Meshes/Characters_Prebuilt/Units/SK_Swordman"));
 	GetMesh()->SetSkeletalMesh(bMesh.Object);
+
+	m_pHealthComponent->Initialize(200);
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> mesh(TEXT("/Game/Toony_Tiny_RTS_Set/Meshes/Marker/SM_Marker"));
 	
 	//m_pSkeletalMesh
