@@ -14,4 +14,6 @@ class GAMEJAMRTS_API AMainPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	AMainPlayerController();
 };

@@ -7,6 +7,7 @@
 #include <map>
 #include "MaterialManager.generated.h"
 
+class AServiceLocator;
 
 UCLASS()
 class GAMEJAMRTS_API AMaterialManager : public AActor
@@ -14,24 +15,24 @@ class GAMEJAMRTS_API AMaterialManager : public AActor
 	GENERATED_BODY()
 	
 public:	
-	static AMaterialManager* GetInstance(UWorld* world);
-
-	// Sets default values for this actor's properties
-	AMaterialManager();
-	~AMaterialManager();
 
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
 	UMaterialInterface* GetMaterialByName(const FString& name);
 
 protected:
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
 
 private:
-	static AMaterialManager* m_pInstance;
+	// Sets default values for this actor's properties
+	AMaterialManager();
+	~AMaterialManager();
 
+	friend class AServiceLocator;
 
 	std::map<FString, UMaterialInterface*> m_Materials;
 };

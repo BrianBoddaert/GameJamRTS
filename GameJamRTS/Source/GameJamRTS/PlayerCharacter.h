@@ -8,6 +8,8 @@
 #include <Camera/CameraComponent.h>
 #include "PlayerCharacter.generated.h"
 
+class SelectableObject;
+
 UCLASS()
 class GAMEJAMRTS_API APlayerCharacter : public ACharacter
 {
@@ -33,10 +35,18 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	void OnLeftMouseClick();
+	void ClickActorResult(const FHitResult&);
 	void MoveUp(float Axis);
 	void MoveRight(float Axis);
 	void ZoomCamera(float Axis);
 	
+	SelectableObject* m_pSelectedActor = nullptr;
+
 	float m_ZoomSpeed;
 	float m_CameraSpeed;
+
+	bool CheckHitUnderMouse(FHitResult& result);
+
+	bool CheckHit(FHitResult& result, const FVector& start, const FVector& dir);
 };

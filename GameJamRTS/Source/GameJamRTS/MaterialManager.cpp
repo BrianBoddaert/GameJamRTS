@@ -4,8 +4,6 @@
 #include "MaterialManager.h"
 
 
-AMaterialManager* AMaterialManager::m_pInstance = nullptr;
-
 // Sets default values
 AMaterialManager::AMaterialManager()
 {
@@ -23,17 +21,8 @@ AMaterialManager::AMaterialManager()
 
 AMaterialManager::~AMaterialManager()
 {
-	m_pInstance = nullptr;
+	
 }
-
-AMaterialManager* AMaterialManager::GetInstance(UWorld* world)
-{
-	if (!m_pInstance)
-		m_pInstance = world->SpawnActor<AMaterialManager>(FVector(0, 0, 0), FRotator(0, 0, 0));
-
-	return m_pInstance;
-}
-
 
 // Called when the game starts or when spawned
 void AMaterialManager::BeginPlay()

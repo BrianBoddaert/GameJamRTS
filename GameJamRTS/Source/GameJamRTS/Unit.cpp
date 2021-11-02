@@ -1,10 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "GameFramework/CharacterMovementComponent.h"
 #include "Unit.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "MaterialManager.h"
+#include "ServiceLocator.h"
 #include "HealthComponent.h"
+#include "MaterialManager.h"
 
 // Sets default values
 AUnit::AUnit()
@@ -158,7 +159,10 @@ void AUnit::MoveTo()
 void AUnit::Initialize(int team)
 {
 	m_Team = team;
-	auto materialManager = AMaterialManager::GetInstance(GetWorld());
+
+	AMaterialManager* materialManager = AServiceLocator::GetInstance(GetWorld())->GetMaterialManager();
+	if (!materialManager)
+		return;
 
 	switch (team)
 	{
@@ -249,4 +253,14 @@ void AUnit::AnimationHitPlayed()
 	m_pCurrentTarget->Destroy();
 	m_pCurrentTarget = nullptr;
 			
+}
+
+void AUnit::OnClick()
+{
+
+}
+
+void AUnit::OnDeselect()
+{
+
 }

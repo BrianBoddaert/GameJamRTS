@@ -7,13 +7,14 @@
 #include "Animation/SkeletalMeshActor.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "SelectableObject.h"
 #include "Unit.generated.h"
 
 
 class UHealthComponent;
 
 UCLASS()
-class GAMEJAMRTS_API AUnit : public ACharacter
+class GAMEJAMRTS_API AUnit : public ACharacter, public SelectableObject
 {
 	GENERATED_BODY()
 	
@@ -68,6 +69,9 @@ public:
 	bool Damage(float amount); // returns if dead
 	void Heal(float amount);
 	bool IsDead() const;
+
+	virtual void OnClick() override;
+	virtual void OnDeselect() override;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
